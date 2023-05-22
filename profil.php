@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Accueil</title>
+    <title>Profil</title>
     <header>
         <section class="header"> 
             <div class="header-right">
@@ -17,22 +17,30 @@
         </section>
 </head>
 <div>
-<section class="cadre_informations">
-    <h1>Bienvenue !</h1>
-    <br>
-    <p>Heureux de vous accueillir sur le site L'Historicon, lieu où l'on partage l'actualité historique peu importe l'époque et le lieu.
-        Intégrez vous à cette communauté qui partage photos, articles et vidéos sur le sujet.
-    </p>
-    <br>
-    <p>
-        N'hésitez pas à nous rejoindre sur les réseaux afin d'être au courant des dernières nouveautés !
-    </p>
-    <br>      
-        <img src="assets/facebook.png" alt="logo facebook"> 
-        <img src="assets/instagram.png" alt="logo instagram">  
-        <img src="assets/linkedin.png" alt="logo linkedin"> 
-        <img src="assets/twitter.png" alt="logo twitter">  
-        <img src="assets/youtube.png" alt="logo youtube">
+<section>
+    <div>
+    <form action="profil.php" method="post" id="formulaire_inscription_et_connexion">
+    <h1>Modification du Profil</h1>
+    <div>
+        Nom d'utilisateur :<br> <input type="text" name="nom_utilisateur" id="nom_utilisateur">
+    </div>
+    <div>
+        Prénom :<br> <input type="text" name="prenom" id="prenom">
+    </div>
+    <div>
+        Nom :<br> <input type="text" name="nom" id="nom">
+    </div>
+    <div>
+        Mot de passe :<br> <input type="text" name="mdp" id="mdp">
+    </div>
+    <div>
+        Confirmation du mot de passe :<br> <input type="text" name="confirmation_mdp" id="confirmation_mdp">
+    </div>
+    <div>
+    <button type="submit" class="bouton_confirmer">Confirmer</button>
+    </div>
+</form>
+</div>
 </section>
 </div>
 <body>

@@ -1,3 +1,17 @@
+<?php
+
+$bdd = new PDO ('mysql:host=localhost;dbname=moduleconnexion', 'root', 'Bartender');
+
+$login = $_POST["login"];
+$prenom = $_POST["prenom"];
+$nom = $_POST["nom"];
+$mdp = $_POST["mdp"];
+$confirmation_mdp = $_POST["confirmation_mdp"];
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +19,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Accueil</title>
+    <title>Formulaire d'inscription</title>
     <header>
         <section class="header"> 
             <div class="header-right">
@@ -38,10 +52,14 @@
     <button type="submit" class="bouton_confirmer">Confirmer</button>
     </div>
     <div>
+    <?php print_r($_POST);?>
     Êtes-vous déjà inscrit ?<br> <a href="connexion.php">Connectez-vous</a>
     </div>
 </form>
 </section>
+<?php 
+
+?>
 <body>
     
 </body>

@@ -1,3 +1,13 @@
+<?php
+
+$bdd = new PDO ('mysql:host=localhost;dbname=moduleconnexion', 'root', 'Bartender');
+
+
+$requete = $bdd->prepare('SELECT * FROM utilisateurs');
+$requete->execute();
+$utilisateurs = $requete->fetchall();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +15,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Accueil</title>
+    <title>Page administration</title>
     <header>
         <section class="header"> 
             <div class="header-right">
@@ -17,22 +27,28 @@
         </section>
 </head>
 <div>
-<section class="cadre_informations">
-    <h1>Bienvenue !</h1>
-    <br>
-    <p>Heureux de vous accueillir sur le site L'Historicon, lieu où l'on partage l'actualité historique peu importe l'époque et le lieu.
-        Intégrez vous à cette communauté qui partage photos, articles et vidéos sur le sujet.
-    </p>
-    <br>
-    <p>
-        N'hésitez pas à nous rejoindre sur les réseaux afin d'être au courant des dernières nouveautés !
-    </p>
-    <br>      
-        <img src="assets/facebook.png" alt="logo facebook"> 
-        <img src="assets/instagram.png" alt="logo instagram">  
-        <img src="assets/linkedin.png" alt="logo linkedin"> 
-        <img src="assets/twitter.png" alt="logo twitter">  
-        <img src="assets/youtube.png" alt="logo youtube">
+<section>
+    <div id="admin">
+    <h1>Liste des utilisateurs</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Login</th>
+            <th>Prenom</th>
+            <th>Nom</th>
+            <th>Mot de Passe</th>
+    <?php
+    foreach ($utilisateurs as $value){ ?>
+        <tr>
+            <td><?php echo $value['id'] ?></td>
+            <td><?php echo $value['login'] ?></td>
+            <td><?php echo $value['prenom'] ?></td>
+            <td><?php echo $value['nom'] ?></td>
+            <td><?php echo $value['password'] ?></td>
+        </tr>
+    <?php } ?>
+    </table>
+    </div>
 </section>
 </div>
 <body>

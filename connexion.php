@@ -1,3 +1,8 @@
+<?php
+
+$bdd = new PDO ('mysql:host=localhost;dbname=moduleconnexion', 'root', 'Bartender');
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Accueil</title>
+    <title>Formulaire de connexion</title>
     <header>
         <section class="header"> 
             <div class="header-right">
@@ -30,6 +35,7 @@
     <button type="submit" class="bouton_confirmer">Confirmer</button>
     </div>
     <div>
+        
     Vous n'avez pas encore de compte ?<br> <a href="inscription.php">Inscrivez-vous</a>
     </div>
 </form>

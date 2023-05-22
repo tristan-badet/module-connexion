@@ -52,6 +52,33 @@ a:active { text-decoration: none; }
     
     margin:10px;
 }
+#admin {
+    padding:30px;
+    border-radius: 16px;
+    width: 600px;
+    height: 100%;
+    background-color: antiquewhite;
+    margin: auto;
+    margin-top: 100px;
+    text-align:justify;
+    font-size: 18px;
+    font-family: cursive;
+    text-align: center;
+}
+#admin table{
+    width: 100%;
+    border: 1px solid;
+    border-collapse: collapse;
+}
+#admin th, td{
+    border: 1px solid;
+    border-collapse: collapse;
+}
+#admin th{
+    color: white;
+    background-color: #0D5D77;
+    border-color: black;
+}
 #formulaire_inscription_et_connexion {
     padding:30px;
     border-radius: 16px;
