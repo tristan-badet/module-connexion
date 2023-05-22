@@ -2,15 +2,45 @@
 
 $bdd = new PDO ('mysql:host=localhost;dbname=moduleconnexion', 'root', 'Bartender');
 
-$login = $_POST["login"];
-$prenom = $_POST["prenom"];
-$nom = $_POST["nom"];
-$mdp = $_POST["mdp"];
-$confirmation_mdp = $_POST["confirmation_mdp"];
+if (isset($_POST["login"])){
+    $login = $_POST["login"];
+}
 
+if (isset($_POST["prenom"])){
+    $prenom = $_POST["prenom"];
+};
 
+if (isset($_POST["nom"])){
+    $nom = $_POST["nom"];
+};
+
+if (isset($_POST["password"])){
+    $password = $_POST["password"];
+};
+
+if (isset($_POST["confirmation_password"])){
+    $confirmation_password = $_POST["confirmation_password"];
+};
+
+if (isset($_POST["login"])){
+$requete = $bdd->prepare('SELECT * FROM utilisateurs WHERE login = ?');
+$requete->execute([$login]);
+$resultat = $requete->rowCount();
+if($resultat > 0){
+    $erreur = "Ce compte existe déjà";
+} 
+
+if(empty($erreur)){
+    $requete = $bdd->prepare("INSERT INTO utilisateurs(login, prenom, nom, password) VALUES(:login, :prenom, :nom, :password)");
+    $requete->bindParam(':login', $login, PDO::PARAM_STR,255);
+    $requete->bindParam(':prenom', $prenom, PDO::PARAM_STR,255);
+    $requete->bindParam(':nom', $nom, PDO::PARAM_STR, 255);
+    $requete->bindParam(':password', $password, PDO::PARAM_STR, 255);
+    $requete->execute();
+    $message = "Votre compte a bien été créé";
+}
+}
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -34,7 +64,7 @@ $confirmation_mdp = $_POST["confirmation_mdp"];
 <form action="inscription.php" method="post" id="formulaire_inscription_et_connexion">
     <h1>Inscription</h1>
     <div>
-        Nom d'utilisateur :<br> <input type="text" name="nom_utilisateur" id="nom_utilisateur">
+        Nom d'utilisateur :<br> <input type="text" name="login" id="login">
     </div>
     <div>
         Prénom :<br> <input type="text" name="prenom" id="prenom">
@@ -43,16 +73,21 @@ $confirmation_mdp = $_POST["confirmation_mdp"];
         Nom :<br> <input type="text" name="nom" id="nom">
     </div>
     <div>
-        Mot de passe :<br> <input type="text" name="mdp" id="mdp">
+        Mot de passe :<br> <input type="text" name="password" id="password">
     </div>
     <div>
-        Confirmation du mot de passe :<br> <input type="text" name="confirmation_mdp" id="confirmation_mdp">
+        Confirmation du mot de passe :<br> <input type="text" name="confirmation_password" id="confirmation_password">
     </div>
     <div>
     <button type="submit" class="bouton_confirmer">Confirmer</button>
     </div>
     <div>
-    <?php print_r($_POST);?>
+        <p><?php 
+        if (isset($_POST["login"])){
+        if(empty($erreur)){echo $message;}else{echo $erreur;}}
+        ?></p>
+</div>
+    <div>
     Êtes-vous déjà inscrit ?<br> <a href="connexion.php">Connectez-vous</a>
     </div>
 </form>
