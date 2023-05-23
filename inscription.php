@@ -16,11 +16,31 @@ if (isset($_POST["nom"])){
 
 if (isset($_POST["password"])){
     $password = $_POST["password"];
-};
+}
 
-if (isset($_POST["confirmation_password"])){
+if(isset($_POST["confirmation_password"])){
     $confirmation_password = $_POST["confirmation_password"];
-};
+}
+
+
+
+if (isset($_POST["password"]) && isset($_POST["confirmation_password"])){
+    if ($_POST["password"] === $_POST["confirmation_password"]){
+        $password = $_POST["password"];
+        $confirmation_password = $_POST["confirmation_password"];
+        $majuscule = preg_match('@[A-Z]@', $password);
+        $minuscule = preg_match('@[a-z]@', $password);
+        $nombre    = preg_match('@[0-9]@', $password);
+        $caractère_spécial = preg_match('@[^\w]@', $password);
+            if (!$majuscule || !$minuscule || !$nombre || !$caractère_spécial ||strlen($password) < 8){
+                $erreur = "Votre mot de passe ne correspond pas aux mesures de sécurité";
+            }
+     } else {
+        $erreur = "Vos mots de passes ne correspondent pas";
+     }
+    }
+
+
 
 if (isset($_POST["login"])){
 $requete = $bdd->prepare('SELECT * FROM utilisateurs WHERE login = ?');
@@ -73,10 +93,10 @@ if(empty($erreur)){
         Nom :<br> <input type="text" name="nom" id="nom">
     </div>
     <div>
-        Mot de passe :<br> <input type="text" name="password" id="password">
+        Mot de passe :<br> <input type="password" name="password" id="password">
     </div>
     <div>
-        Confirmation du mot de passe :<br> <input type="text" name="confirmation_password" id="confirmation_password">
+        Confirmation du mot de passe :<br> <input type="password" name="confirmation_password" id="confirmation_password">
     </div>
     <div>
     <button type="submit" class="bouton_confirmer">Confirmer</button>
@@ -84,7 +104,7 @@ if(empty($erreur)){
     <div>
         <p><?php 
         if (isset($_POST["login"])){
-        if(empty($erreur)){echo $message;}else{echo $erreur;}}
+        if(empty($erreur)){echo $message; header( "refresh:5;url=connexion.php" );}else{echo $erreur;}}
         ?></p>
 </div>
     <div>
