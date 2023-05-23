@@ -27,13 +27,15 @@ if(isset($_POST["confirmation_password"])){
 if (isset($_POST["password"]) && isset($_POST["confirmation_password"])){
     if ($_POST["password"] === $_POST["confirmation_password"]){
         $password = $_POST["password"];
-        $confirmation_password = $_POST["confirmation_password"];
+        
         $majuscule = preg_match('@[A-Z]@', $password);
         $minuscule = preg_match('@[a-z]@', $password);
         $nombre    = preg_match('@[0-9]@', $password);
         $caractère_spécial = preg_match('@[^\w]@', $password);
             if (!$majuscule || !$minuscule || !$nombre || !$caractère_spécial ||strlen($password) < 8){
                 $erreur = "Votre mot de passe ne correspond pas aux mesures de sécurité";
+            }else{
+                $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
             }
      } else {
         $erreur = "Vos mots de passes ne correspondent pas";

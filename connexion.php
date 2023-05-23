@@ -1,7 +1,36 @@
 <?php
 
 $bdd = new PDO ('mysql:host=localhost;dbname=moduleconnexion', 'root', 'Bartender');
+if (isset($_COOKIE[""])){
+    header("location:index.php");
+}
+$erreur = "";
+if(isset($_POST["login"])){
+    if(empty($_POST["login"]) || empty($_POST["password"])){
+        $erreur = "Veuillez remplir les champs."
+    } else {
+        $requete = $bdd->prepare('SELECT * FROM utilisateurs WHERE login = ?');
+        $requete->execute(array(
+            'login'=> $_POST["login"]
+        ));
+        $compteur = $requete->rowCount();
+        if ($compteur > 0){
+            $resultat = $requete->fetchAll();
+            foreach($resultat as $valeur){
+                if(password_verify($_POST["password"], $valeur["password"])){
+                    setcookie("Connexion", $valeur["login"], time()+60x60x24);
+                    header("location:index.php");
+                }
+                else{
+                    $erreur = "Mauvais mot de passe";
+                }
+            }
+        }
 
+    }else {
+        $erreur = "Mauvais nom d'utilisateur";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,10 +55,10 @@ $bdd = new PDO ('mysql:host=localhost;dbname=moduleconnexion', 'root', 'Bartende
 <form action="inscription.php" method="post" id="formulaire_inscription_et_connexion">
     <h1>Connexion</h1>
     <div>
-        Nom d'utilisateur :<br> <input type="text" name="nom_utilisateur" id="nom_utilisateur">
+        Nom d'utilisateur :<br> <input type="text" name="login" id="login">
     </div>
     <div>
-        Mot de passe:<br> <input type="text" name="prenom" id="prenom">
+        Mot de passe:<br> <input type="text" name="password" id="password">
     </div>
     <div>
     <button type="submit" class="bouton_confirmer">Confirmer</button>
