@@ -12,7 +12,10 @@ if(isset($_POST["login"])){
         if ($compteur > 0){
             $resultat = $requete->fetchAll();
             foreach($resultat as $valeur){
-                if(password_verify($_POST["password"], $valeur["password"])){
+                if($valeur["id"]=="1"){
+                    $message = "admin trouvé, transfert vers la base de données.";
+                    header("refresh:2;admin.php");
+                }elseif (password_verify($_POST["password"], $valeur["password"])){
                     $message = "Connexion effectuée, veuillez patienter.";
                     $_SESSION["Connexion"] = true;
                     $_SESSION["login"] = $valeur['login'];
