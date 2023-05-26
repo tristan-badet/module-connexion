@@ -1,5 +1,12 @@
 <?php
+session_start();
+if(isset($_POST['bouton_deconnexion'])) {
+   session_unset();
+session_destroy();
+header("location:connexion.php");
+exit;
 
+}
 $bdd = new PDO ('mysql:host=localhost;dbname=moduleconnexion', 'root', 'Bartender');
 
 
@@ -19,10 +26,11 @@ $utilisateurs = $requete->fetchall();
     <header>
         <section class="header"> 
             <div class="header-right">
+            <form method="post">
             <a href="index.php" class="header-a">Accueil</a>
-            <a href="connexion.php" class="header-a">Connexion</a>
-            <a href="inscription.php" class="header-a">Inscription</a>
             <a href="profil.php" class="header-a">Profil</a>
+            <button type="submit" name="bouton_deconnexion" value="Déconnexion" class="déco">Déconnexion</button>
+        </div>
         </div>
         </section>
 </head>

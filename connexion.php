@@ -1,9 +1,6 @@
 <?php
-
+session_start();
 $bdd = new PDO ('mysql:host=localhost;dbname=moduleconnexion', 'root', 'Bartender');
-if (isset($_COOKIE[""])){
-    header("location:index.php");
-}
 $erreur = "";
 if(isset($_POST["login"])){
     if(empty($_POST["login"]) || empty($_POST["password"])){
@@ -17,8 +14,11 @@ if(isset($_POST["login"])){
             foreach($resultat as $valeur){
                 if(password_verify($_POST["password"], $valeur["password"])){
                     $message = "Connexion effectuée, veuillez patienter.";
-                    setcookie("Connexion", $valeur["login"], time()+3600);
-                    header("refresh:2;url=index.php");
+                    $_SESSION["Connexion"] = true;
+                    $_SESSION["login"] = $valeur['login'];
+                    $_SESSION["prenom"] = $valeur['prenom'];
+                    $_SESSION["nom"] = $valeur['nom'];
+                    header("refresh:2;index.php");
                 }else{
                     $erreur = "Mauvais mot de passe";
                 }
@@ -44,7 +44,7 @@ if(isset($_POST["login"])){
             <a href="index.php" class="header-a">Accueil</a>
             <a href="connexion.php" class="header-a">Connexion</a>
             <a href="inscription.php" class="header-a">Inscription</a>
-            <a href="profil.php" class="header-a">Profil</a>
+
         </div>
         </section>
 </head>

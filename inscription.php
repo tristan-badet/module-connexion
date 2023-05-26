@@ -75,10 +75,13 @@ if(empty($erreur)){
     <header>
         <section class="header"> 
             <div class="header-right">
+            <form method="post">
             <a href="index.php" class="header-a">Accueil</a>
-            <a href="connexion.php" class="header-a">Connexion</a>
-            <a href="inscription.php" class="header-a">Inscription</a>
-            <a href="profil.php" class="header-a">Profil</a>
+            
+           
+                <a href="connexion.php" class="header-a">Connexion</a>
+                <a href="inscription.php" class="header-a">Inscription</a>
+            </form>
         </div>
         </section>
 </head>
@@ -106,7 +109,7 @@ if(empty($erreur)){
     <div>
         <p><?php 
         if (isset($_POST["login"])){
-        if(empty($erreur)){echo $message; header( "refresh:5;url=connexion.php" );}else{echo $erreur;}}
+        if(empty($erreur)){echo $message; header( "refresh:1;url=connexion.php" );}else{echo $erreur;}}
         ?></p>
 </div>
     <div>
